@@ -1,0 +1,19 @@
+﻿.btn {
+	width: 110px;
+	padding: 10px 12px;
+	border: none;
+	border-radius: 22px;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 18px;
+	cursor: pointer;
+}
+
+.black {
+	background-color: var(--accent);
+	color: var(--white);
+}
+
+.white {
+	background-color: var(--white);
+}
