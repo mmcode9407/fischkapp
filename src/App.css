@@ -14,7 +14,9 @@
 	box-sizing: border-box;
 }
 
-html {
+html,
+input,
+textarea {
 	font-family: 'Lexend', sans-serif;
 }
 
