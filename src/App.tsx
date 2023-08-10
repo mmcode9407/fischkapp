@@ -6,16 +6,18 @@ import { FlashCard } from './components/FlashCard';
 import './App.css';
 
 function App() {
-	const flashCardsList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+	const flashCardsList = [1];
 	return (
 		<AppLayout>
 			<AppHeader />
-			{/* <NewCard /> */}
-			<ul className='cardsContainer'>
-				{flashCardsList.map((card) => (
-					<FlashCard />
-				))}
-			</ul>
+			<section className='section'>
+				<NewCard />
+				<ul className='cardsContainer'>
+					{flashCardsList.map((card) => (
+						<FlashCard />
+					))}
+				</ul>
+			</section>
 		</AppLayout>
 	);
 }
