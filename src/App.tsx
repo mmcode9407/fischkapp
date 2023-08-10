@@ -4,14 +4,27 @@ import { NewCard } from './components/NewCard';
 import { FlashCard } from './components/FlashCard';
 
 import './App.css';
+import { useState } from 'react';
+
+interface flashCard {
+	frontText: string;
+	backText: string;
+	id: number;
+}
 
 function App() {
-	const flashCardsList = [1];
+	const [flashCardsList, setFlashCardList] = useState<flashCard[]>([]);
+	const [isAdding, setIsAdding] = useState<boolean>(false);
+
+	const handleAddCard = () => {
+		setIsAdding((prev) => !prev);
+	};
+
 	return (
 		<AppLayout>
-			<AppHeader />
+			<AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
 			<section className='section'>
-				<NewCard />
+				{isAdding && <NewCard />}
 				<ul className='cardsContainer'>
 					{flashCardsList.map((card) => (
 						<FlashCard />
