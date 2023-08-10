@@ -20,11 +20,15 @@ function App() {
 		setIsAdding((prev) => !prev);
 	};
 
+	const handleCancel = () => {
+		setIsAdding(false);
+	};
+
 	return (
 		<AppLayout>
 			<AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
 			<section className='section'>
-				{isAdding && <NewCard />}
+				{isAdding && <NewCard onCancel={handleCancel} />}
 				<ul className='cardsContainer'>
 					{flashCardsList.map((card) => (
 						<FlashCard />
