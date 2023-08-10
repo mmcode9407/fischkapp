@@ -3,16 +3,23 @@ import styles from './NewCard.module.css';
 import deleteIcon from '../../public/icons/deleteIcon.svg';
 import { NewCardSide } from './NewCardSide';
 import { CardButton } from './CardButton';
+import { flashCard } from '../types/types';
 
 interface NewCardProps {
 	onCancel: () => void;
+	onSave: (flashCard: flashCard) => void;
 }
 
-export const NewCard = ({ onCancel }: NewCardProps) => {
+export const NewCard = ({ onCancel, onSave }: NewCardProps) => {
 	const [isFront, setIsFront] = useState<boolean>(true);
 
 	const handleChangeSide = () => {
 		setIsFront((prev) => !prev);
+	};
+
+	const handleSaveButtonClick = () => {
+		onSave({ frontText: '', backText: '' });
+		onCancel();
 	};
 
 	return (
@@ -35,11 +42,15 @@ export const NewCard = ({ onCancel }: NewCardProps) => {
 				) : (
 					<NewCardSide name='backSide' styles={styles}>
 						<CardButton
-							variant='black'
+							variant='white'
 							onClick={handleChangeSide}
 							text='Back'
 						/>
-						<CardButton variant='white' text='Save' />
+						<CardButton
+							variant='black'
+							onClick={handleSaveButtonClick}
+							text='Save'
+						/>
 					</NewCardSide>
 				)}
 			</form>

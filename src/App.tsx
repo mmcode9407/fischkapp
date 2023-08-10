@@ -5,15 +5,14 @@ import { FlashCard } from './components/FlashCard';
 
 import './App.css';
 import { useState } from 'react';
+import { flashCard } from './types/types';
 
-interface flashCard {
-	frontText: string;
-	backText: string;
+interface flashCardObj extends flashCard {
 	id: number;
 }
 
 function App() {
-	const [flashCardsList, setFlashCardList] = useState<flashCard[]>([]);
+	const [flashCardsList, setFlashCardList] = useState<flashCardObj[]>([]);
 	const [isAdding, setIsAdding] = useState<boolean>(false);
 
 	const handleAddCard = () => {
@@ -24,14 +23,24 @@ function App() {
 		setIsAdding(false);
 	};
 
+	const handleSave = (flashCard: flashCard) => {
+		const id =
+			flashCardsList.reduce((acc, next) => {
+				return acc < next.id ? next.id : acc;
+			}, 0) + 1;
+		const newFlashCard = { ...flashCard, id };
+
+		setFlashCardList([...flashCardsList, newFlashCard]);
+	};
+
 	return (
 		<AppLayout>
 			<AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
 			<section className='section'>
-				{isAdding && <NewCard onCancel={handleCancel} />}
+				{isAdding && <NewCard onCancel={handleCancel} onSave={handleSave} />}
 				<ul className='cardsContainer'>
 					{flashCardsList.map((card) => (
-						<FlashCard />
+						<FlashCard key={card.id} />
 					))}
 				</ul>
 			</section>
