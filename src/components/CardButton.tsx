@@ -1,12 +1,12 @@
 ﻿import styles from './CardButton.module.css';
 
-interface buttonProps {
+interface IButtonProps {
 	variant: 'white' | 'black';
 	onClick?: () => void;
 	text: string;
 }
 
-export const CardButton = ({ variant, onClick, text }: buttonProps) => {
+export const CardButton = ({ variant, onClick, text }: IButtonProps) => {
 	return (
 		<button
 			className={`${styles.btn} ${styles[variant]}`}

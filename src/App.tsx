@@ -5,14 +5,14 @@ import { FlashCard } from './components/FlashCard';
 
 import './App.css';
 import { useState } from 'react';
-import { flashCard } from './types/types';
+import { IFlashCard } from './types/types';
 
-interface flashCardObj extends flashCard {
+interface IFlashCardObj extends IFlashCard {
 	id: number;
 }
 
 function App() {
-	const [flashCardsList, setFlashCardList] = useState<flashCardObj[]>([]);
+	const [flashCardsList, setFlashCardList] = useState<IFlashCardObj[]>([]);
 	const [isAdding, setIsAdding] = useState<boolean>(false);
 
 	const handleAddCard = () => {
@@ -23,7 +23,7 @@ function App() {
 		setIsAdding(false);
 	};
 
-	const handleSave = (flashCard: flashCard) => {
+	const handleSave = (flashCard: IFlashCard) => {
 		const id =
 			flashCardsList.reduce((acc, next) => {
 				return acc < next.id ? next.id : acc;

@@ -3,14 +3,14 @@ import styles from './NewCard.module.css';
 import deleteIcon from '../../public/icons/deleteIcon.svg';
 import { NewCardSide } from './NewCardSide';
 import { CardButton } from './CardButton';
-import { flashCard } from '../types/types';
+import { IFlashCard } from '../types/types';
 
-interface NewCardProps {
+interface INewCardProps {
 	onCancel: () => void;
-	onSave: (flashCard: flashCard) => void;
+	onSave: (flashCard: IFlashCard) => void;
 }
 
-export const NewCard = ({ onCancel, onSave }: NewCardProps) => {
+export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
 	const [isFront, setIsFront] = useState<boolean>(true);
 
 	const handleChangeSide = () => {
