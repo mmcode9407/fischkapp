@@ -2,12 +2,12 @@ import styles from './AppHeader.module.css';
 import appLogo from '../../public/fishkapp_logo.svg';
 import addIcon from '../../public/icons/addIcon.svg';
 
-interface AppHeaderProps {
+interface IAppHeaderProps {
 	cardsQty: number;
 	onClick: () => void;
 }
 
-export const AppHeader = ({ cardsQty, onClick }: AppHeaderProps) => {
+export const AppHeader = ({ cardsQty, onClick }: IAppHeaderProps) => {
 	return (
 		<header className={styles.header}>
 			<div className={styles.container}>
