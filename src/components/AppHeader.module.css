@@ -1,31 +1,31 @@
 .header {
-	position: fixed;
-	top: 0;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	max-width: 375px;
-	height: 60px;
-	padding: 16px;
-	background: var(--white);
-	z-index: 9999;
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 375px;
+  height: 60px;
+  padding: 16px;
+  background: var(--white);
+  z-index: 9999;
 }
 
 .container {
-	display: flex;
-	align-items: center;
-	gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .add__btn {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 2.5rem;
-	height: 2.5rem;
-	border: none;
-	border-radius: 50%;
-	background-color: var(--accent);
-	cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--accent);
+  cursor: pointer;
 }

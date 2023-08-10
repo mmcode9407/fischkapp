@@ -1,4 +1,4 @@
 ﻿export interface IFlashCard {
-	frontText: string;
-	backText: string;
+  frontText: string;
+  backText: string;
 }

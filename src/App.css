@@ -1,42 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap");
 
 :root {
-	--white: #fff;
-	--background: #f1f2f3;
-	--accent: #161616;
-	--typo: #b6b6b6;
-	--border: #ebebec;
+  --white: #fff;
+  --background: #f1f2f3;
+  --accent: #161616;
+  --typo: #b6b6b6;
+  --border: #ebebec;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 input,
 textarea {
-	font-family: 'Lexend', sans-serif;
+  font-family: "Lexend", sans-serif;
 }
 
 body {
-	background: #373737;
+  background: #373737;
 }
 
 .section {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 16px;
-	padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
 }
 
 .cardsContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 12px;
-	width: 100%;
-	list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  list-style-type: none;
 }
