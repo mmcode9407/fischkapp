@@ -4,17 +4,43 @@ import { NewCard } from './components/NewCard';
 import { FlashCard } from './components/FlashCard';
 
 import './App.css';
+import { useState } from 'react';
+import { flashCard } from './types/types';
+
+interface flashCardObj extends flashCard {
+	id: number;
+}
 
 function App() {
-	const flashCardsList = [1];
+	const [flashCardsList, setFlashCardList] = useState<flashCardObj[]>([]);
+	const [isAdding, setIsAdding] = useState<boolean>(false);
+
+	const handleAddCard = () => {
+		setIsAdding((prev) => !prev);
+	};
+
+	const handleCancel = () => {
+		setIsAdding(false);
+	};
+
+	const handleSave = (flashCard: flashCard) => {
+		const id =
+			flashCardsList.reduce((acc, next) => {
+				return acc < next.id ? next.id : acc;
+			}, 0) + 1;
+		const newFlashCard = { ...flashCard, id };
+
+		setFlashCardList([...flashCardsList, newFlashCard]);
+	};
+
 	return (
 		<AppLayout>
-			<AppHeader />
+			<AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
 			<section className='section'>
-				<NewCard />
+				{isAdding && <NewCard onCancel={handleCancel} onSave={handleSave} />}
 				<ul className='cardsContainer'>
 					{flashCardsList.map((card) => (
-						<FlashCard />
+						<FlashCard key={card.id} />
 					))}
 				</ul>
 			</section>

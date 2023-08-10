@@ -1,14 +1,25 @@
-﻿import { ChangeEvent, useState } from 'react';
+﻿import { useState } from 'react';
 import styles from './NewCard.module.css';
 import deleteIcon from '../../public/icons/deleteIcon.svg';
 import { NewCardSide } from './NewCardSide';
 import { CardButton } from './CardButton';
+import { flashCard } from '../types/types';
 
-export const NewCard = () => {
+interface NewCardProps {
+	onCancel: () => void;
+	onSave: (flashCard: flashCard) => void;
+}
+
+export const NewCard = ({ onCancel, onSave }: NewCardProps) => {
 	const [isFront, setIsFront] = useState<boolean>(true);
 
 	const handleChangeSide = () => {
 		setIsFront((prev) => !prev);
+	};
+
+	const handleSaveButtonClick = () => {
+		onSave({ frontText: '', backText: '' });
+		onCancel();
 	};
 
 	return (
@@ -21,7 +32,7 @@ export const NewCard = () => {
 			<form className={styles.form}>
 				{isFront ? (
 					<NewCardSide name='frontSide' styles={styles}>
-						<CardButton variant='white' text='Cancel' />
+						<CardButton variant='white' onClick={onCancel} text='Cancel' />
 						<CardButton
 							variant='black'
 							onClick={handleChangeSide}
@@ -31,11 +42,15 @@ export const NewCard = () => {
 				) : (
 					<NewCardSide name='backSide' styles={styles}>
 						<CardButton
-							variant='black'
+							variant='white'
 							onClick={handleChangeSide}
 							text='Back'
 						/>
-						<CardButton variant='white' text='Save' />
+						<CardButton
+							variant='black'
+							onClick={handleSaveButtonClick}
+							text='Save'
+						/>
 					</NewCardSide>
 				)}
 			</form>
