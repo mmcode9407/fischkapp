@@ -10,6 +10,14 @@ export const FlashCard = () => {
   const [isFront, setIsFront] = useState<boolean>(true);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
   return (
     <>
       {isFront ? (
@@ -17,10 +25,7 @@ export const FlashCard = () => {
           {!isEditing ? (
             <li className={styles.container}>
               <p className={styles.text}>Tu będzie tekst fiszki</p>
-              <button
-                className={styles.editBtn}
-                onClick={() => setIsEditing(prev => !prev)}
-              >
+              <button className={styles.editBtn} onClick={handleEdit}>
                 <img src={editIcon} alt="Edit button icon" />
               </button>
             </li>
@@ -31,7 +36,11 @@ export const FlashCard = () => {
               </button>
               <form className={newCardStyles.form}>
                 <NewCardSide name="frontSide" styles={newCardStyles}>
-                  <CardButton variant="white" text="Cancel" />
+                  <CardButton
+                    variant="white"
+                    onClick={handleCancel}
+                    text="Cancel"
+                  />
                   <CardButton variant="black" text="Save" />
                 </NewCardSide>
               </form>
@@ -43,10 +52,7 @@ export const FlashCard = () => {
           {!isEditing ? (
             <li className={styles.container}>
               <p className={styles.text}>Tu będzie drugi tekst fiszki</p>
-              <button
-                className={styles.editBtn}
-                onClick={() => setIsEditing(prev => !prev)}
-              >
+              <button className={styles.editBtn} onClick={handleEdit}>
                 <img src={editIcon} alt="Edit button icon" />
               </button>
             </li>
@@ -57,7 +63,11 @@ export const FlashCard = () => {
               </button>
               <form className={newCardStyles.form}>
                 <NewCardSide name="backSide" styles={newCardStyles}>
-                  <CardButton variant="white" text="Cancel" />
+                  <CardButton
+                    variant="white"
+                    onClick={handleCancel}
+                    text="Cancel"
+                  />
                   <CardButton variant="black" text="Save" />
                 </NewCardSide>
               </form>
