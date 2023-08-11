@@ -6,9 +6,11 @@ import { FlashCard } from "./components/FlashCard";
 import "./App.css";
 import { useState } from "react";
 import { IFlashCard, IFlashCardObj } from "./types/types";
+import { initialCards } from "./data/initialCards";
 
 function App() {
-  const [flashCardsList, setFlashCardList] = useState<IFlashCardObj[]>([]);
+  const [flashCardsList, setFlashCardList] =
+    useState<IFlashCardObj[]>(initialCards);
   const [isAdding, setIsAdding] = useState<boolean>(false);
 
   const handleAddCard = () => setIsAdding(prev => !prev);
