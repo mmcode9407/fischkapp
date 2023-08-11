@@ -1,79 +1,23 @@
-﻿import styles from "./FlashCard.module.css";
-import newCardStyles from "./NewCard.module.css";
-import editIcon from "../../public/icons/editIcon.svg";
-import deleteIcon from "../../public/icons/deleteIcon.svg";
-import { useState } from "react";
-import { NewCardSide } from "./NewCardSide";
-import { CardButton } from "./CardButton";
+﻿import { useState } from "react";
 
-export const FlashCard = () => {
+import { IFlashCardObj } from "../types/types";
+import { FlashCardSide } from "./FlashCardSide";
+
+export interface IFlashCardProps {
+  cardContent: IFlashCardObj;
+  onSave: (index: number, field: string, newText: string) => void;
+  index: number;
+}
+
+export const FlashCard = (props: IFlashCardProps) => {
   const [isFront, setIsFront] = useState<boolean>(true);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-  };
 
   return (
     <>
       {isFront ? (
-        <>
-          {!isEditing ? (
-            <li className={styles.container}>
-              <p className={styles.text}>Tu będzie tekst fiszki</p>
-              <button className={styles.editBtn} onClick={handleEdit}>
-                <img src={editIcon} alt="Edit button icon" />
-              </button>
-            </li>
-          ) : (
-            <div className={newCardStyles.card}>
-              <button className={newCardStyles.deleteBtn}>
-                <img src={deleteIcon} alt="Delete icon" />
-              </button>
-              <form className={newCardStyles.form}>
-                <NewCardSide name="frontSide" styles={newCardStyles}>
-                  <CardButton
-                    variant="white"
-                    onClick={handleCancel}
-                    text="Cancel"
-                  />
-                  <CardButton variant="black" text="Save" />
-                </NewCardSide>
-              </form>
-            </div>
-          )}
-        </>
+        <FlashCardSide side="frontSide" {...props} />
       ) : (
-        <>
-          {!isEditing ? (
-            <li className={styles.container}>
-              <p className={styles.text}>Tu będzie drugi tekst fiszki</p>
-              <button className={styles.editBtn} onClick={handleEdit}>
-                <img src={editIcon} alt="Edit button icon" />
-              </button>
-            </li>
-          ) : (
-            <div className={newCardStyles.card}>
-              <button className={newCardStyles.deleteBtn}>
-                <img src={deleteIcon} alt="Delete icon" />
-              </button>
-              <form className={newCardStyles.form}>
-                <NewCardSide name="backSide" styles={newCardStyles}>
-                  <CardButton
-                    variant="white"
-                    onClick={handleCancel}
-                    text="Cancel"
-                  />
-                  <CardButton variant="black" text="Save" />
-                </NewCardSide>
-              </form>
-            </div>
-          )}
-        </>
+        <FlashCardSide side="backSide" {...props} />
       )}
     </>
   );

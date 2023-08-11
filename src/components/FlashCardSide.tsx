@@ -1,0 +1,74 @@
+﻿import { ChangeEvent, useState } from "react";
+import styles from "./FlashCardSide.module.css";
+import newCardStyles from "./NewCard.module.css";
+import editIcon from "../../public/icons/editIcon.svg";
+import deleteIcon from "../../public/icons/deleteIcon.svg";
+import { NewCardSide } from "./NewCardSide";
+import { CardButton } from "./CardButton";
+import { InputValues } from "../types/types";
+import { initialValue } from "../data/initialInputValue";
+import { IFlashCardProps } from "./FlashCard";
+
+interface IFlashCardSideProps extends IFlashCardProps {
+  side: "frontSide" | "backSide";
+}
+
+export const FlashCardSide = ({
+  cardContent,
+  side,
+  onSave,
+  index,
+}: IFlashCardSideProps) => {
+  const [value, setValue] = useState<InputValues>(initialValue);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+
+    const initialCardContent: InputValues = {
+      frontSide: cardContent.frontSide,
+      backSide: cardContent.backSide,
+    };
+    setValue(initialCardContent);
+  };
+
+  const handleCancel = () => setIsEditing(false);
+
+  const updateField = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue({ ...value, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = () => {
+    onSave(index, side, value[side]);
+    handleCancel();
+  };
+
+  return (
+    <>
+      {!isEditing ? (
+        <li className={styles.container}>
+          <p className={styles.text}>{cardContent[side]}</p>
+          <button className={styles.editBtn} onClick={handleEdit}>
+            <img src={editIcon} alt="Edit button icon" />
+          </button>
+        </li>
+      ) : (
+        <div className={newCardStyles.card}>
+          <button className={newCardStyles.deleteBtn}>
+            <img src={deleteIcon} alt="Delete icon" />
+          </button>
+          <form className={newCardStyles.form}>
+            <NewCardSide name={side} updateField={updateField} value={value}>
+              <CardButton
+                variant="white"
+                onClick={handleCancel}
+                text="Cancel"
+              />
+              <CardButton variant="black" text="Save" onClick={handleSave} />
+            </NewCardSide>
+          </form>
+        </div>
+      )}
+    </>
+  );
+};

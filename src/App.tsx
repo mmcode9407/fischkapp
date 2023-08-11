@@ -25,6 +25,16 @@ function App() {
     setFlashCardList([...flashCardsList, newFlashCard]);
   };
 
+  const handleSaveEditing = (index: number, field: string, newText: string) => {
+    setFlashCardList(prev => {
+      const updatedCards = [...prev];
+
+      updatedCards[index] = { ...updatedCards[index], [field]: newText };
+
+      return updatedCards;
+    });
+  };
+
   return (
     <AppLayout>
       <AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
@@ -32,8 +42,13 @@ function App() {
         {isAdding && <NewCard onCancel={handleCancel} onSave={handleSave} />}
         {flashCardsList.length > 0 ? (
           <ul className="cardsContainer">
-            {flashCardsList.map(card => (
-              <FlashCard key={card.id} />
+            {flashCardsList.map((card, idx) => (
+              <FlashCard
+                key={card.id}
+                cardContent={card}
+                index={idx}
+                onSave={handleSaveEditing}
+              />
             ))}
           </ul>
         ) : (
