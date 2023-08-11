@@ -1,11 +1,11 @@
 ﻿import { useState } from "react";
 
-import { IFlashCardObj } from "../types/types";
+import { IFlashCard } from "../types/types";
 import { FlashCardSide } from "./FlashCardSide";
 import ReactCardFlip from "react-card-flip";
 
 export interface IFlashCardProps {
-  cardContent: IFlashCardObj;
+  cardContent: IFlashCard;
   onSave: (index: number, field: string, newText: string) => void;
   onDelete: (index: number) => void;
   index: number;
@@ -18,8 +18,8 @@ export const FlashCard = (props: IFlashCardProps) => {
 
   return (
     <ReactCardFlip isFlipped={isBack} containerStyle={{ width: "100%" }}>
-      <FlashCardSide side="frontSide" flip={handleFlip} {...props} />
-      <FlashCardSide side="backSide" flip={handleFlip} {...props} />
+      <FlashCardSide side="front" flip={handleFlip} {...props} />
+      <FlashCardSide side="back" flip={handleFlip} {...props} />
     </ReactCardFlip>
   );
 };

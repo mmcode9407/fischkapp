@@ -1,11 +1,12 @@
 ﻿import { ChangeEvent, ReactNode, useEffect, useRef } from "react";
 import styles from "./NewCardSide.module.css";
+import { IFlashCard } from "../types/types";
 
 interface NewCardSideProps {
   children: ReactNode;
   name: string;
   updateField: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-  value: { [key: string]: string };
+  value: IFlashCard;
 }
 
 export const NewCardSide = ({

@@ -3,7 +3,7 @@ import styles from "./NewCard.module.css";
 import deleteIcon from "../../public/icons/deleteIcon.svg";
 import { NewCardSide } from "./NewCardSide";
 import { CardButton } from "./CardButton";
-import { IFlashCard, InputValues } from "../types/types";
+import { IFlashCard } from "../types/types";
 import { initialValue } from "../data/initialInputValue";
 
 interface INewCardProps {
@@ -13,7 +13,7 @@ interface INewCardProps {
 
 export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
   const [isFront, setIsFront] = useState<boolean>(true);
-  const [value, setValue] = useState<InputValues>(initialValue);
+  const [value, setValue] = useState<IFlashCard>(initialValue);
 
   const handleChangeSide = () => setIsFront(prev => !prev);
 
@@ -35,7 +35,7 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
       )}
       <form className={styles.form}>
         {isFront ? (
-          <NewCardSide name="frontSide" updateField={updateField} value={value}>
+          <NewCardSide name="front" updateField={updateField} value={value}>
             <CardButton variant="white" onClick={onCancel} text="Cancel" />
             <CardButton
               variant="black"
@@ -44,7 +44,7 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
             />
           </NewCardSide>
         ) : (
-          <NewCardSide name="backSide" updateField={updateField} value={value}>
+          <NewCardSide name="back" updateField={updateField} value={value}>
             <CardButton
               variant="white"
               onClick={handleChangeSide}
