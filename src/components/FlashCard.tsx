@@ -13,12 +13,14 @@ export interface IFlashCardProps {
 export const FlashCard = (props: IFlashCardProps) => {
   const [isFront, setIsFront] = useState<boolean>(true);
 
+  const handleFlip = () => setIsFront(prev => !prev);
+
   return (
     <>
       {isFront ? (
-        <FlashCardSide side="frontSide" {...props} />
+        <FlashCardSide side="frontSide" flip={handleFlip} {...props} />
       ) : (
-        <FlashCardSide side="backSide" {...props} />
+        <FlashCardSide side="backSide" flip={handleFlip} {...props} />
       )}
     </>
   );
