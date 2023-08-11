@@ -32,6 +32,13 @@ body {
   padding: 16px;
 }
 
+.emptyText {
+  align-self: flex-start;
+  color: var(--typo);
+  font-weight: 400;
+  line-height: 18px;
+}
+
 .cardsContainer {
   display: flex;
   flex-direction: column;
