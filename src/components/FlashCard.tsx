@@ -6,6 +6,7 @@ import { FlashCardSide } from "./FlashCardSide";
 export interface IFlashCardProps {
   cardContent: IFlashCardObj;
   onSave: (index: number, field: string, newText: string) => void;
+  onDelete: (index: number) => void;
   index: number;
 }
 

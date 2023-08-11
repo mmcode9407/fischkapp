@@ -18,6 +18,7 @@ export const FlashCardSide = ({
   side,
   onSave,
   index,
+  onDelete,
 }: IFlashCardSideProps) => {
   const [value, setValue] = useState<InputValues>(initialValue);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -43,6 +44,10 @@ export const FlashCardSide = ({
     handleCancel();
   };
 
+  const handleDelete = () => {
+    onDelete(cardContent.id);
+  };
+
   return (
     <>
       {!isEditing ? (
@@ -54,7 +59,7 @@ export const FlashCardSide = ({
         </li>
       ) : (
         <div className={newCardStyles.card}>
-          <button className={newCardStyles.deleteBtn}>
+          <button className={newCardStyles.deleteBtn} onClick={handleDelete}>
             <img src={deleteIcon} alt="Delete icon" />
           </button>
           <form className={newCardStyles.form}>
