@@ -1,21 +1,31 @@
-﻿import { ChangeEvent, ReactNode, useEffect, useRef, useState } from "react";
+﻿import { ChangeEvent, ReactNode, useEffect, useRef } from "react";
+import styles from "./NewCardSide.module.css";
 
 interface NewCardSideProps {
   children: ReactNode;
-  styles: { [key: string]: string };
   name: string;
+  updateField: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  value: { [key: string]: string };
 }
 
-export const NewCardSide = ({ children, styles, name }: NewCardSideProps) => {
+export const NewCardSide = ({
+  children,
+  name,
+  updateField,
+  value,
+}: NewCardSideProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const setHeight = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    e.target.style.height = "auto";
-    e.target.style.height = `${e.target.scrollHeight}px`;
+  const setHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
   };
 
   useEffect(() => {
     textareaRef.current?.focus();
+    setHeight();
   }, []);
 
   return (
@@ -26,6 +36,8 @@ export const NewCardSide = ({ children, styles, name }: NewCardSideProps) => {
         rows={1}
         onInput={setHeight}
         name={name}
+        onChange={updateField}
+        value={value[name]}
       ></textarea>
       <div className={styles.btnBox}>{children}</div>
     </>

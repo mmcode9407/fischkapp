@@ -18,23 +18,6 @@
   gap: 46px;
 }
 
-.textarea {
-  width: 100%;
-  height: 40px;
-  padding: 10px 10px 10px 12px;
-  font-size: 16px;
-  font-weight: 500;
-  border: 1px solid var(--border);
-  resize: none;
-  overflow: hidden;
-}
-
-.btnBox {
-  display: flex;
-  gap: 7px;
-  align-self: flex-end;
-}
-
 .deleteBtn {
   position: absolute;
   top: 0;

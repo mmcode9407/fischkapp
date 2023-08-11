@@ -5,30 +5,22 @@ import { FlashCard } from "./components/FlashCard";
 
 import "./App.css";
 import { useState } from "react";
-import { IFlashCard } from "./types/types";
-
-interface IFlashCardObj extends IFlashCard {
-  id: number;
-}
+import { IFlashCard, IFlashCardObj } from "./types/types";
 
 function App() {
   const [flashCardsList, setFlashCardList] = useState<IFlashCardObj[]>([]);
   const [isAdding, setIsAdding] = useState<boolean>(false);
 
-  const handleAddCard = () => {
-    setIsAdding((prev) => !prev);
-  };
+  const handleAddCard = () => setIsAdding(prev => !prev);
 
-  const handleCancel = () => {
-    setIsAdding(false);
-  };
+  const handleCancel = () => setIsAdding(false);
 
   const handleSave = (flashCard: IFlashCard) => {
     const id =
       flashCardsList.reduce((acc, next) => {
         return acc < next.id ? next.id : acc;
       }, 0) + 1;
-    const newFlashCard = { ...flashCard, id };
+    const newFlashCard: IFlashCardObj = { ...flashCard, id };
 
     setFlashCardList([...flashCardsList, newFlashCard]);
   };
@@ -38,11 +30,15 @@ function App() {
       <AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
       <section className="section">
         {isAdding && <NewCard onCancel={handleCancel} onSave={handleSave} />}
-        <ul className="cardsContainer">
-          {flashCardsList.map((card) => (
-            <FlashCard key={card.id} />
-          ))}
-        </ul>
+        {flashCardsList.length > 0 ? (
+          <ul className="cardsContainer">
+            {flashCardsList.map(card => (
+              <FlashCard key={card.id} />
+            ))}
+          </ul>
+        ) : (
+          <p className="emptyText">Add your first flashcard</p>
+        )}
       </section>
     </AppLayout>
   );

@@ -1,9 +1,10 @@
-﻿import { useState } from "react";
+﻿import { useState, ChangeEvent } from "react";
 import styles from "./NewCard.module.css";
 import deleteIcon from "../../public/icons/deleteIcon.svg";
 import { NewCardSide } from "./NewCardSide";
 import { CardButton } from "./CardButton";
-import { IFlashCard } from "../types/types";
+import { IFlashCard, InputValues } from "../types/types";
+import { initialValue } from "../data/initialInputValue";
 
 interface INewCardProps {
   onCancel: () => void;
@@ -12,14 +13,17 @@ interface INewCardProps {
 
 export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
   const [isFront, setIsFront] = useState<boolean>(true);
+  const [value, setValue] = useState<InputValues>(initialValue);
 
-  const handleChangeSide = () => {
-    setIsFront(prev => !prev);
-  };
+  const handleChangeSide = () => setIsFront(prev => !prev);
 
   const handleSaveButtonClick = () => {
-    onSave({ frontText: "", backText: "" });
+    onSave(value);
     onCancel();
+  };
+
+  const updateField = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue({ ...value, [e.target.name]: e.target.value });
   };
 
   return (
@@ -31,7 +35,7 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
       )}
       <form className={styles.form}>
         {isFront ? (
-          <NewCardSide name="frontSide" styles={styles}>
+          <NewCardSide name="frontSide" updateField={updateField} value={value}>
             <CardButton variant="white" onClick={onCancel} text="Cancel" />
             <CardButton
               variant="black"
@@ -40,7 +44,7 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
             />
           </NewCardSide>
         ) : (
-          <NewCardSide name="backSide" styles={styles}>
+          <NewCardSide name="backSide" updateField={updateField} value={value}>
             <CardButton
               variant="white"
               onClick={handleChangeSide}
