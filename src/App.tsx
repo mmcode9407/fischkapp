@@ -35,6 +35,14 @@ function App() {
     });
   };
 
+  const handleDeleteCard = (index: number) => {
+    setFlashCardList(prev => {
+      const cardAfterRemoving = prev.filter(card => card.id !== index);
+
+      return cardAfterRemoving;
+    });
+  };
+
   return (
     <AppLayout>
       <AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
@@ -48,6 +56,7 @@ function App() {
                 cardContent={card}
                 index={idx}
                 onSave={handleSaveEditing}
+                onDelete={handleDeleteCard}
               />
             ))}
           </ul>
