@@ -2,6 +2,7 @@
 
 import { IFlashCardObj } from "../types/types";
 import { FlashCardSide } from "./FlashCardSide";
+import ReactCardFlip from "react-card-flip";
 
 export interface IFlashCardProps {
   cardContent: IFlashCardObj;
@@ -11,15 +12,14 @@ export interface IFlashCardProps {
 }
 
 export const FlashCard = (props: IFlashCardProps) => {
-  const [isFront, setIsFront] = useState<boolean>(true);
+  const [isBack, setIsBack] = useState<boolean>(false);
+
+  const handleFlip = () => setIsBack(prev => !prev);
 
   return (
-    <>
-      {isFront ? (
-        <FlashCardSide side="frontSide" {...props} />
-      ) : (
-        <FlashCardSide side="backSide" {...props} />
-      )}
-    </>
+    <ReactCardFlip isFlipped={isBack} containerStyle={{ width: "100%" }}>
+      <FlashCardSide side="frontSide" flip={handleFlip} {...props} />
+      <FlashCardSide side="backSide" flip={handleFlip} {...props} />
+    </ReactCardFlip>
   );
 };

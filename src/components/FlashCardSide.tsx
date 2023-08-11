@@ -1,4 +1,4 @@
-﻿import { ChangeEvent, useState } from "react";
+﻿import { ChangeEvent, MouseEventHandler, useState } from "react";
 import styles from "./FlashCardSide.module.css";
 import newCardStyles from "./NewCard.module.css";
 import editIcon from "../../public/icons/editIcon.svg";
@@ -11,6 +11,7 @@ import { IFlashCardProps } from "./FlashCard";
 
 interface IFlashCardSideProps extends IFlashCardProps {
   side: "frontSide" | "backSide";
+  flip: () => void;
 }
 
 export const FlashCardSide = ({
@@ -19,11 +20,13 @@ export const FlashCardSide = ({
   onSave,
   index,
   onDelete,
+  flip,
 }: IFlashCardSideProps) => {
   const [value, setValue] = useState<InputValues>(initialValue);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const handleEdit = () => {
+  const handleEdit: MouseEventHandler<HTMLButtonElement> = e => {
+    e.stopPropagation();
     setIsEditing(true);
 
     const initialCardContent: InputValues = {
@@ -44,14 +47,12 @@ export const FlashCardSide = ({
     handleCancel();
   };
 
-  const handleDelete = () => {
-    onDelete(cardContent.id);
-  };
+  const handleDelete = () => onDelete(cardContent.id);
 
   return (
     <>
       {!isEditing ? (
-        <li className={styles.container}>
+        <li className={styles.container} onClick={flip}>
           <p className={styles.text}>{cardContent[side]}</p>
           <button className={styles.editBtn} onClick={handleEdit}>
             <img src={editIcon} alt="Edit button icon" />
