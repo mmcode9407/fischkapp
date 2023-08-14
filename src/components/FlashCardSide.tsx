@@ -47,7 +47,10 @@ export const FlashCardSide = ({
     handleCancel();
   };
 
-  const handleDelete = () => onDelete(index);
+  const handleDelete = () => {
+    onDelete(index);
+    setIsEditing(false);
+  };
 
   return (
     <>
