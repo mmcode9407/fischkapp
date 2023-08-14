@@ -2,6 +2,7 @@ import { AppHeader } from "./components/AppHeader";
 import { AppLayout } from "./components/AppLayout";
 import { NewCard } from "./components/NewCard";
 import { FlashCard } from "./components/FlashCard";
+import { Loader } from "./components/Loader";
 
 import "./App.css";
 import { useState } from "react";
@@ -14,15 +15,23 @@ function App() {
   const [flashCardsList, setFlashCardList] =
     useState<IFlashCard[]>(initialCards);
   const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleAddCard = () => setIsAdding(prev => !prev);
 
   const handleCancel = () => setIsAdding(false);
 
-  const handleSave = async (flashCard: IFlashCard) => {
-    post(flashCard).then(data =>
-      setFlashCardList([...flashCardsList, data.flashcard]),
-    );
+  const handleSave = (flashCard: IFlashCard) => {
+    setLoading(true);
+    setBodyOverflow("hidden");
+    post(flashCard)
+      .then(data => {
+        setFlashCardList([...flashCardsList, data.flashcard]);
+      })
+      .finally(() => {
+        setLoading(false);
+        setBodyOverflow("auto");
+      });
   };
 
   const handleSaveEditing = (index: number, field: string, newText: string) => {
@@ -43,8 +52,13 @@ function App() {
     });
   };
 
+  const setBodyOverflow = (prop: string) => {
+    document.body.style.overflowY = prop;
+  };
+
   return (
     <AppLayout>
+      <Loader isLoading={loading} />
       <AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
       <section className="section">
         {isAdding && <NewCard onCancel={handleCancel} onSave={handleSave} />}

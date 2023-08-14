@@ -1,6 +1,7 @@
 ﻿import { IFlashCard } from "../types/types";
 
-const API_LINK = "https://training.nerdbord.io/api/v1/fischkapp/flashcards";
+const API_LINK: string =
+  "https://training.nerdbord.io/api/v1/fischkapp/flashcards";
 
 interface IFetchOptions {
   method: "POST";
@@ -27,10 +28,11 @@ export const post = (data: IFlashCard) => {
 const _fetchData = (options: IFetchOptions, additionalPath = "") => {
   const API_URL = `${API_LINK}${additionalPath}`;
 
-  return fetch(API_URL, options).then(resp => {
-    if (resp.ok) {
-      return resp.json();
-    }
-    throw new Error(resp.status.toString());
-  });
+  return fetch(API_URL, options)
+    .then(resp => {
+      if (resp.ok) {
+        return resp.json();
+      }
+    })
+    .catch(err => console.log(err));
 };
