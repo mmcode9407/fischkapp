@@ -9,7 +9,7 @@ import { useState } from "react";
 import { IFlashCard } from "./types/types";
 import { initialCards } from "./data/initialCards";
 
-import { post } from "./api/API";
+import { postNewFlashCard } from "./api/API";
 
 function App() {
   const [flashCardsList, setFlashCardList] =
@@ -21,17 +21,19 @@ function App() {
 
   const handleCancel = () => setIsAdding(false);
 
-  const handleSave = (flashCard: IFlashCard) => {
+  const handleSave = async (flashCard: IFlashCard) => {
     setLoading(true);
-    setBodyOverflow("hidden");
-    post(flashCard)
-      .then(data => {
-        setFlashCardList([...flashCardsList, data.flashcard]);
-      })
-      .finally(() => {
-        setLoading(false);
-        setBodyOverflow("auto");
-      });
+
+    try {
+      const data: any = await postNewFlashCard(flashCard);
+
+      setFlashCardList([...flashCardsList, data.flashcard]);
+      setIsAdding(false);
+    } catch (err) {
+      alert(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSaveEditing = (index: number, field: string, newText: string) => {
@@ -52,13 +54,9 @@ function App() {
     });
   };
 
-  const setBodyOverflow = (prop: string) => {
-    document.body.style.overflowY = prop;
-  };
-
   return (
     <AppLayout>
-      <Loader isLoading={loading} />
+      {loading && <Loader />}
       <AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
       <section className="section">
         {isAdding && <NewCard onCancel={handleCancel} onSave={handleSave} />}

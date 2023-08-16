@@ -19,7 +19,6 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
 
   const handleSaveButtonClick = () => {
     onSave(value);
-    onCancel();
   };
 
   const updateField = (e: ChangeEvent<HTMLTextAreaElement>) => {

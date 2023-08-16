@@ -12,7 +12,7 @@ interface IFetchOptions {
   };
 }
 
-export const post = (data: IFlashCard) => {
+export const postNewFlashCard = (data: IFlashCard) => {
   const options: IFetchOptions = {
     method: "POST",
     body: JSON.stringify(data),
@@ -25,14 +25,16 @@ export const post = (data: IFlashCard) => {
   return _fetchData(options);
 };
 
-const _fetchData = (options: IFetchOptions, additionalPath = "") => {
+const _fetchData = async (options: IFetchOptions, additionalPath = "") => {
   const API_URL = `${API_LINK}${additionalPath}`;
 
-  return fetch(API_URL, options)
-    .then(resp => {
-      if (resp.ok) {
-        return resp.json();
-      }
-    })
-    .catch(err => console.log(err));
+  const resp = await fetch(API_URL, options);
+
+  if (resp.ok) {
+    return resp.json();
+  }
+
+  if (resp.status === 400) {
+    throw new Error("Flashcard already exists");
+  }
 };
