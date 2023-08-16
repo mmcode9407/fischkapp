@@ -6,7 +6,7 @@ import { Loader } from "./components/Loader";
 
 import "./App.css";
 import { useState } from "react";
-import { IFlashCard } from "./types/types";
+import { EditPayload, IFlashCard } from "./types/types";
 import { initialCards } from "./data/initialCards";
 
 import { editFlashCard, postNewFlashCard } from "./api/API";
@@ -25,7 +25,7 @@ function App() {
     setLoading(true);
 
     try {
-      const data: any = await postNewFlashCard(flashCard);
+      const data: { flashcard: IFlashCard } = await postNewFlashCard(flashCard);
 
       setFlashCardList([...flashCardsList, data.flashcard]);
       setIsAdding(false);
@@ -43,13 +43,12 @@ function App() {
   ) => {
     setLoading(true);
 
-    const newData = {
+    const newData: EditPayload = {
       [field]: newText,
     };
 
     try {
-      const data: any = await editFlashCard(newData, index);
-      console.log(data);
+      await editFlashCard(newData, index);
 
       setFlashCardList(prev => {
         const updatedCards: IFlashCard[] = [...prev].map(card => {

@@ -1,4 +1,4 @@
-﻿import { IFlashCard } from "../types/types";
+﻿import { EditPayload, IFlashCard } from "../types/types";
 
 const API_LINK: string =
   "https://training.nerdbord.io/api/v1/fischkapp/flashcards";
@@ -25,7 +25,7 @@ export const postNewFlashCard = (data: IFlashCard) => {
   return _fetchData(options);
 };
 
-export const editFlashCard = (data: { [key: string]: string }, id: string) => {
+export const editFlashCard = (data: EditPayload, id: string) => {
   const options: IFetchOptions = {
     method: "PATCH",
     body: JSON.stringify(data),
