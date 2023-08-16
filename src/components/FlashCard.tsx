@@ -6,9 +6,8 @@ import ReactCardFlip from "react-card-flip";
 
 export interface IFlashCardProps {
   cardContent: IFlashCard;
-  onSave: (index: number, field: string, newText: string) => void;
-  onDelete: (index: number) => void;
-  index: number;
+  onSave: (index: string, field: string, newText: string) => void;
+  onDelete: (index: string) => void;
 }
 
 export const FlashCard = (props: IFlashCardProps) => {

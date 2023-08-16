@@ -18,7 +18,6 @@ export const FlashCardSide = ({
   cardContent,
   side,
   onSave,
-  index,
   onDelete,
   flip,
 }: IFlashCardSideProps) => {
@@ -43,12 +42,12 @@ export const FlashCardSide = ({
   };
 
   const handleSave = () => {
-    onSave(index, side, value[side]);
-    handleCancel();
+    onSave(cardContent._id, side, value[side]);
+    setIsEditing(false);
   };
 
   const handleDelete = () => {
-    onDelete(index);
+    onDelete(cardContent._id);
     setIsEditing(false);
   };
 
