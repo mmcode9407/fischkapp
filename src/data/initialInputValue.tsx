@@ -1,3 +1,3 @@
-﻿import { InputValues } from "../types/types";
+﻿import { IFlashCard } from "../types/types";
 
-export const initialValue: InputValues = { frontSide: "", backSide: "" };
+export const initialValue: IFlashCard = { front: "", back: "" };

@@ -2,29 +2,38 @@ import { AppHeader } from "./components/AppHeader";
 import { AppLayout } from "./components/AppLayout";
 import { NewCard } from "./components/NewCard";
 import { FlashCard } from "./components/FlashCard";
+import { Loader } from "./components/Loader";
 
 import "./App.css";
 import { useState } from "react";
-import { IFlashCard, IFlashCardObj } from "./types/types";
+import { IFlashCard } from "./types/types";
 import { initialCards } from "./data/initialCards";
+
+import { postNewFlashCard } from "./api/API";
 
 function App() {
   const [flashCardsList, setFlashCardList] =
-    useState<IFlashCardObj[]>(initialCards);
+    useState<IFlashCard[]>(initialCards);
   const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleAddCard = () => setIsAdding(prev => !prev);
 
   const handleCancel = () => setIsAdding(false);
 
-  const handleSave = (flashCard: IFlashCard) => {
-    const id =
-      flashCardsList.reduce((acc, next) => {
-        return acc < next.id ? next.id : acc;
-      }, 0) + 1;
-    const newFlashCard: IFlashCardObj = { ...flashCard, id };
+  const handleSave = async (flashCard: IFlashCard) => {
+    setLoading(true);
 
-    setFlashCardList([...flashCardsList, newFlashCard]);
+    try {
+      const data: any = await postNewFlashCard(flashCard);
+
+      setFlashCardList([...flashCardsList, data.flashcard]);
+      setIsAdding(false);
+    } catch (err) {
+      alert(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSaveEditing = (index: number, field: string, newText: string) => {
@@ -39,7 +48,7 @@ function App() {
 
   const handleDeleteCard = (index: number) => {
     setFlashCardList(prev => {
-      const cardAfterRemoving = prev.filter(card => card.id !== index);
+      const cardAfterRemoving = prev.filter((card, idx) => idx !== index);
 
       return cardAfterRemoving;
     });
@@ -47,6 +56,7 @@ function App() {
 
   return (
     <AppLayout>
+      {loading && <Loader />}
       <AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
       <section className="section">
         {isAdding && <NewCard onCancel={handleCancel} onSave={handleSave} />}
@@ -54,7 +64,7 @@ function App() {
           <ul className="cardsContainer">
             {flashCardsList.map((card, idx) => (
               <FlashCard
-                key={card.id}
+                key={idx}
                 cardContent={card}
                 index={idx}
                 onSave={handleSaveEditing}

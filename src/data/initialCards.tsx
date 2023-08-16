@@ -1,11 +1,9 @@
-﻿import { IFlashCardObj } from "../types/types";
+﻿import { IFlashCard } from "../types/types";
 
-export const initialCards: IFlashCardObj[] = [
-  { frontSide: "egg", backSide: "jajko", id: 1 },
+export const initialCards: IFlashCard[] = [
+  { front: "egg", back: "jajko" },
   {
-    frontSide: "Co to jest Nerdbord?",
-    backSide:
-      "Najlepsza platforma to zwiększania swoich front-end'owych skili :)",
-    id: 2,
+    front: "Co to jest Nerdbord?",
+    back: "Najlepsza platforma to zwiększania swoich front-end'owych skili :)",
   },
 ];

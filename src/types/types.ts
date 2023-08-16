@@ -1,13 +1,5 @@
 ﻿export interface IFlashCard {
-  frontSide: string;
-  backSide: string;
+  front: string;
+  back: string;
+  [key: string]: string;
 }
-
-export interface IFlashCardObj extends IFlashCard {
-  id: number;
-}
-
-export type InputValues = {
-  frontSide: string;
-  backSide: string;
-};

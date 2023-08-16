@@ -9,7 +9,7 @@
   height: 60px;
   padding: 16px;
   background: var(--white);
-  z-index: 9999;
+  z-index: 9;
 }
 
 .container {

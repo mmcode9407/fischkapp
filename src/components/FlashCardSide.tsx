@@ -5,12 +5,12 @@ import editIcon from "../../public/icons/editIcon.svg";
 import deleteIcon from "../../public/icons/deleteIcon.svg";
 import { NewCardSide } from "./NewCardSide";
 import { CardButton } from "./CardButton";
-import { InputValues } from "../types/types";
+import { IFlashCard } from "../types/types";
 import { initialValue } from "../data/initialInputValue";
 import { IFlashCardProps } from "./FlashCard";
 
 interface IFlashCardSideProps extends IFlashCardProps {
-  side: "frontSide" | "backSide";
+  side: "front" | "back";
   flip: () => void;
 }
 
@@ -22,16 +22,16 @@ export const FlashCardSide = ({
   onDelete,
   flip,
 }: IFlashCardSideProps) => {
-  const [value, setValue] = useState<InputValues>(initialValue);
+  const [value, setValue] = useState<IFlashCard>(initialValue);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const handleEdit: MouseEventHandler<HTMLButtonElement> = e => {
     e.stopPropagation();
     setIsEditing(true);
 
-    const initialCardContent: InputValues = {
-      frontSide: cardContent.frontSide,
-      backSide: cardContent.backSide,
+    const initialCardContent: IFlashCard = {
+      front: cardContent.front,
+      back: cardContent.back,
     };
     setValue(initialCardContent);
   };
@@ -47,7 +47,10 @@ export const FlashCardSide = ({
     handleCancel();
   };
 
-  const handleDelete = () => onDelete(cardContent.id);
+  const handleDelete = () => {
+    onDelete(index);
+    setIsEditing(false);
+  };
 
   return (
     <>
