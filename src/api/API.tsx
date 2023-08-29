@@ -4,7 +4,7 @@ const API_LINK: string =
   "https://training.nerdbord.io/api/v1/fischkapp/flashcards";
 
 interface IFetchOptions {
-  method: "POST" | "PATCH" | "GET";
+  method: "POST" | "PATCH" | "GET" | "DELETE";
   body?: string;
   headers?: {
     "Content-Type": "application/json";
@@ -44,6 +44,18 @@ export const getFlashCards = () => {
   };
 
   return _fetchData(options);
+};
+
+export const deleteFlashCard = (id: string) => {
+  const options: IFetchOptions = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "secret_token",
+    },
+  };
+
+  return _fetchData(options, `/${id}`);
 };
 
 const _fetchData = async (options: IFetchOptions, additionalPath = "") => {

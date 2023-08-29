@@ -44,13 +44,16 @@ export const FlashCardSide = ({
   };
 
   const handleSave = () => {
-    onSave(cardContent._id, side, value[side]);
-    setIsEditing(false);
+    if (cardContent._id) {
+      onSave(cardContent._id, side, value[side]);
+      setIsEditing(false);
+    }
   };
 
   const handleDelete = () => {
-    onDelete(cardContent._id);
-    setIsEditing(false);
+    if (cardContent._id) {
+      onDelete(cardContent._id);
+    }
   };
 
   return (

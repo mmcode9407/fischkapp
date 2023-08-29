@@ -8,7 +8,12 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { CardSide, EditPayload, IFlashCard } from "./types/types";
 
-import { editFlashCard, getFlashCards, postNewFlashCard } from "./api/API";
+import {
+  deleteFlashCard,
+  editFlashCard,
+  getFlashCards,
+  postNewFlashCard,
+} from "./api/API";
 
 function App() {
   const [flashCardsList, setFlashCardList] = useState<IFlashCard[]>([]);
@@ -65,12 +70,20 @@ function App() {
     }
   };
 
-  const handleDeleteCard = (index: string) => {
-    setFlashCardList(prev => {
-      const cardAfterRemoving = prev.filter(card => card._id !== index);
+  const handleDeleteCard = async (index: string) => {
+    setLoading(true);
 
-      return cardAfterRemoving;
-    });
+    try {
+      const data: { message: string } = await deleteFlashCard(index);
+
+      alert(data.message);
+      const dataAfterDelete: IFlashCard[] = await getFlashCards();
+      setFlashCardList(dataAfterDelete);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getFlashCardsFromAPI = async () => {
