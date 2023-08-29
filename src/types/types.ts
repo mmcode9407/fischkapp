@@ -1,7 +1,7 @@
 ﻿export type IFlashCard = {
   front: string;
   back: string;
-  _id: string;
+  _id?: string;
 };
 
 export type EditPayload =

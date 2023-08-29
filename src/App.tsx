@@ -5,15 +5,13 @@ import { FlashCard } from "./components/FlashCard";
 import { Loader } from "./components/Loader";
 
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardSide, EditPayload, IFlashCard } from "./types/types";
-import { initialCards } from "./data/initialCards";
 
-import { editFlashCard, postNewFlashCard } from "./api/API";
+import { editFlashCard, getFlashCards, postNewFlashCard } from "./api/API";
 
 function App() {
-  const [flashCardsList, setFlashCardList] =
-    useState<IFlashCard[]>(initialCards);
+  const [flashCardsList, setFlashCardList] = useState<IFlashCard[]>([]);
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -74,6 +72,23 @@ function App() {
       return cardAfterRemoving;
     });
   };
+
+  const getFlashCardsFromAPI = async () => {
+    setLoading(true);
+
+    try {
+      const data: IFlashCard[] = await getFlashCards();
+      setFlashCardList(data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getFlashCardsFromAPI();
+  }, []);
 
   return (
     <AppLayout>

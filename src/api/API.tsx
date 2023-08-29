@@ -4,9 +4,9 @@ const API_LINK: string =
   "https://training.nerdbord.io/api/v1/fischkapp/flashcards";
 
 interface IFetchOptions {
-  method: "POST" | "PATCH";
-  body: string;
-  headers: {
+  method: "POST" | "PATCH" | "GET";
+  body?: string;
+  headers?: {
     "Content-Type": "application/json";
     Authorization: string;
   };
@@ -36,6 +36,14 @@ export const editFlashCard = (data: EditPayload, id: string) => {
   };
 
   return _fetchData(options, `/${id}`);
+};
+
+export const getFlashCards = () => {
+  const options: IFetchOptions = {
+    method: "GET",
+  };
+
+  return _fetchData(options);
 };
 
 const _fetchData = async (options: IFetchOptions, additionalPath = "") => {
