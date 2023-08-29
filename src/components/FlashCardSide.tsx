@@ -5,12 +5,12 @@ import editIcon from "../../public/icons/editIcon.svg";
 import deleteIcon from "../../public/icons/deleteIcon.svg";
 import { NewCardSide } from "./NewCardSide";
 import { CardButton } from "./CardButton";
-import { IFlashCard } from "../types/types";
+import { CardSide, IFlashCard } from "../types/types";
 import { initialValue } from "../data/initialInputValue";
 import { IFlashCardProps } from "./FlashCard";
 
 interface IFlashCardSideProps extends IFlashCardProps {
-  side: "front" | "back";
+  side: CardSide;
   flip: () => void;
 }
 
@@ -31,7 +31,9 @@ export const FlashCardSide = ({
     const initialCardContent: IFlashCard = {
       front: cardContent.front,
       back: cardContent.back,
+      _id: cardContent._id,
     };
+
     setValue(initialCardContent);
   };
 

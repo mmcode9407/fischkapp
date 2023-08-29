@@ -6,7 +6,7 @@ import { Loader } from "./components/Loader";
 
 import "./App.css";
 import { useState } from "react";
-import { EditPayload, IFlashCard } from "./types/types";
+import { CardSide, EditPayload, IFlashCard } from "./types/types";
 import { initialCards } from "./data/initialCards";
 
 import { editFlashCard, postNewFlashCard } from "./api/API";
@@ -38,7 +38,7 @@ function App() {
 
   const handleSaveEditing = async (
     index: string,
-    field: string,
+    field: CardSide,
     newText: string,
   ) => {
     setLoading(true);
