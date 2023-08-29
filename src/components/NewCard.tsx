@@ -3,7 +3,7 @@ import styles from "./NewCard.module.css";
 import deleteIcon from "../../public/icons/deleteIcon.svg";
 import { NewCardSide } from "./NewCardSide";
 import { CardButton } from "./CardButton";
-import { IFlashCard } from "../types/types";
+import { CardSide, IFlashCard } from "../types/types";
 import { initialValue } from "../data/initialInputValue";
 
 interface INewCardProps {
@@ -34,7 +34,11 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
       )}
       <form className={styles.form}>
         {isFront ? (
-          <NewCardSide name="front" updateField={updateField} value={value}>
+          <NewCardSide
+            name={CardSide.FRONT}
+            updateField={updateField}
+            value={value}
+          >
             <CardButton variant="white" onClick={onCancel} text="Cancel" />
             <CardButton
               variant="black"
@@ -43,7 +47,11 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
             />
           </NewCardSide>
         ) : (
-          <NewCardSide name="back" updateField={updateField} value={value}>
+          <NewCardSide
+            name={CardSide.BACK}
+            updateField={updateField}
+            value={value}
+          >
             <CardButton
               variant="white"
               onClick={handleChangeSide}
