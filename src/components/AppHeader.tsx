@@ -14,7 +14,7 @@ export const AppHeader = ({ cardsQty, onClick }: IAppHeaderProps) => {
         <img src={appLogo} alt="App logo" />
         <p>Cards: {cardsQty}</p>
       </div>
-      <button className={styles.add__btn} onClick={onClick}>
+      <button className={styles.add__btn} onClick={onClick} aria-label="addBtn">
         <img src={addIcon} alt="Add icon" />
       </button>
     </header>

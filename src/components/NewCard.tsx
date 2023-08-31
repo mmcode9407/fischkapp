@@ -14,11 +14,24 @@ interface INewCardProps {
 export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
   const [isFront, setIsFront] = useState<boolean>(true);
   const [value, setValue] = useState<IFlashCard>(initialValue);
+  const [error, setError] = useState<string>("");
 
-  const handleChangeSide = () => setIsFront(prev => !prev);
+  const handleChangeSide = () => {
+    if (value.front === "") {
+      setError("Front text is required");
+    } else {
+      setIsFront(prev => !prev);
+      setError("");
+    }
+  };
 
   const handleSaveButtonClick = () => {
-    onSave(value);
+    if (value.back === "") {
+      setError("Back text is required");
+    } else {
+      onSave(value);
+      setError("");
+    }
   };
 
   const updateField = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -38,6 +51,8 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
             name={CardSide.FRONT}
             updateField={updateField}
             value={value}
+            error={error}
+            setError={setError}
           >
             <CardButton variant="white" onClick={onCancel} text="Cancel" />
             <CardButton
@@ -51,6 +66,8 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
             name={CardSide.BACK}
             updateField={updateField}
             value={value}
+            error={error}
+            setError={setError}
           >
             <CardButton
               variant="white"

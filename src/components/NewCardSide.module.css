@@ -9,6 +9,19 @@
   overflow: hidden;
 }
 
+.textarea.invalid {
+  border-color: #ff0000;
+}
+
+.errorText {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ff0000;
+  font-size: 12px;
+}
+
 .btnBox {
   display: flex;
   gap: 7px;

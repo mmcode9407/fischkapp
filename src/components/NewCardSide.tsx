@@ -7,6 +7,8 @@ interface NewCardSideProps {
   name: CardSide;
   updateField: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   value: IFlashCard;
+  error: string;
+  setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const NewCardSide = ({
@@ -14,8 +16,17 @@ export const NewCardSide = ({
   name,
   updateField,
   value,
+  error,
+  setError,
 }: NewCardSideProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleInput = () => {
+    setHeight();
+    if (setError) {
+      setError("");
+    }
+  };
 
   const setHeight = () => {
     if (textareaRef.current) {
@@ -33,13 +44,14 @@ export const NewCardSide = ({
     <>
       <textarea
         ref={textareaRef}
-        className={styles.textarea}
+        className={`${styles.textarea} ${error ? styles.invalid : null}`}
         rows={1}
-        onInput={setHeight}
+        onInput={handleInput}
         name={name}
         onChange={updateField}
         value={value[name]}
       ></textarea>
+      {error && <p className={styles.errorText}>{error}</p>}
       <div className={styles.btnBox}>{children}</div>
     </>
   );
