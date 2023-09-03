@@ -71,7 +71,11 @@ export const FlashCardSide = ({
       {!isEditing ? (
         <li className={styles.container} onClick={flip}>
           <p className={styles.text}>{cardContent[side]}</p>
-          <button className={styles.editBtn} onClick={handleEdit}>
+          <button
+            className={styles.editBtn}
+            onClick={handleEdit}
+            aria-label={`${side}EditBtn`}
+          >
             <img src={editIcon} alt="Edit button icon" />
           </button>
         </li>
