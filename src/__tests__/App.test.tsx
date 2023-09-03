@@ -154,3 +154,19 @@ describe("edit flashcard", () => {
     });
   });
 });
+
+describe("get flashcard", () => {
+  it("should get all flashcard", async () => {
+    const cards: IFlashCard[] = [
+      { front: "front", back: "back", _id: "jkasjd123" },
+      { front: "front", back: "back", _id: "hjhuwd23j" },
+    ];
+    mockedGetCardsRequest.mockResolvedValue(cards);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getAllByText("front").length).toBe(2);
+    });
+  });
+});
