@@ -86,3 +86,71 @@ describe("add flashcard", () => {
     expect(errorText).toBeInTheDocument();
   });
 });
+
+describe("edit flashcard", () => {
+  it("should edit flashcard when the text value is given ", async () => {
+    const cards: IFlashCard[] = [
+      { front: "front1", back: "back1", _id: "123" },
+    ];
+    mockedGetCardsRequest.mockResolvedValue(cards);
+
+    render(<App />);
+
+    const editBtn = await waitFor(() => screen.getByLabelText("frontEditBtn"));
+    await userEvent.click(editBtn);
+
+    const frontTextarea = await waitFor(() => screen.getByRole("textbox"));
+    await userEvent.clear(frontTextarea);
+    await userEvent.type(frontTextarea, "front1 edited");
+
+    const saveBtn = await waitFor(() => screen.getByText(/save/i));
+    await userEvent.click(saveBtn);
+
+    await waitFor(() => {
+      expect(screen.getByText("front1 edited")).toBeInTheDocument();
+    });
+  });
+
+  it("should not be possible to edit a flashcard when edited value is empty", async () => {
+    const cards: IFlashCard[] = [
+      { front: "front1", back: "back1", _id: "123" },
+    ];
+    mockedGetCardsRequest.mockResolvedValue(cards);
+
+    render(<App />);
+
+    const editBtn = await waitFor(() => screen.getByLabelText("frontEditBtn"));
+    await userEvent.click(editBtn);
+
+    const frontTextarea = await waitFor(() => screen.getByRole("textbox"));
+    await userEvent.clear(frontTextarea);
+
+    const saveBtn = await waitFor(() => screen.getByText(/save/i));
+    await userEvent.click(saveBtn);
+
+    const errorText = await waitFor(() =>
+      screen.getByText("Front text is required!"),
+    );
+
+    expect(errorText).toBeInTheDocument();
+  });
+
+  it("should exit editing mode when clicking cancel button", async () => {
+    const cards: IFlashCard[] = [
+      { front: "front1", back: "back1", _id: "123" },
+    ];
+    mockedGetCardsRequest.mockResolvedValue(cards);
+
+    render(<App />);
+
+    const editBtn = await waitFor(() => screen.getByLabelText("frontEditBtn"));
+    await userEvent.click(editBtn);
+
+    const cancelBtn = await waitFor(() => screen.getByText(/cancel/i));
+    await userEvent.click(cancelBtn);
+
+    await waitFor(() => {
+      expect(cancelBtn).not.toBeInTheDocument();
+    });
+  });
+});
