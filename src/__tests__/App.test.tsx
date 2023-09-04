@@ -2,14 +2,13 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { deleteFlashCard, getFlashCards, postNewFlashCard } from "../api/API";
+import { getFlashCards, postNewFlashCard } from "../api/API";
 import { IFlashCard } from "../types/types";
 
 jest.mock("../api/API");
 
 const mockedGetCardsRequest = getFlashCards as jest.Mock;
 const mockedPostCardsRequest = postNewFlashCard as jest.Mock;
-const mockedDeleteCardsRequest = deleteFlashCard as jest.Mock;
 
 describe("add flashcard", () => {
   it("should add new flashcard when the front and back values are given ", async () => {
@@ -179,6 +178,7 @@ describe("delete flashcard", () => {
 
     render(<App />);
 
+    const card = await waitFor(() => screen.getByText("front"));
     const editBtn = await waitFor(() => screen.getByLabelText("frontEditBtn"));
     await userEvent.click(editBtn);
 
@@ -191,6 +191,9 @@ describe("delete flashcard", () => {
       expect(
         screen.getByText("Flashcard deleted successfully"),
       ).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(card).not.toBeInTheDocument();
     });
   });
 });

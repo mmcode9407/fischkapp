@@ -80,8 +80,9 @@ function App() {
 
       setIsDeleted(true);
 
-      const dataAfterDelete: IFlashCard[] = await getFlashCards();
-      setFlashCardList(dataAfterDelete);
+      setFlashCardList(prev => {
+        return prev.filter(card => card._id !== index);
+      });
 
       setTimeout(() => {
         setIsDeleted(false);
