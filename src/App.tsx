@@ -14,11 +14,13 @@ import {
   getFlashCards,
   postNewFlashCard,
 } from "./api/API";
+import { DeleteModal } from "./components/DeleteModal";
 
 function App() {
   const [flashCardsList, setFlashCardList] = useState<IFlashCard[]>([]);
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
   const handleAddCard = () => setIsAdding(prev => !prev);
 
@@ -74,11 +76,16 @@ function App() {
     setLoading(true);
 
     try {
-      const data: { message: string } = await deleteFlashCard(index);
+      await deleteFlashCard(index);
 
-      alert(data.message);
+      setIsDeleted(true);
+
       const dataAfterDelete: IFlashCard[] = await getFlashCards();
       setFlashCardList(dataAfterDelete);
+
+      setTimeout(() => {
+        setIsDeleted(false);
+      }, 500);
     } catch (err) {
       console.log(err);
     } finally {
@@ -105,6 +112,7 @@ function App() {
 
   return (
     <AppLayout>
+      {isDeleted && <DeleteModal />}
       {loading && <Loader />}
       <AppHeader cardsQty={flashCardsList.length} onClick={handleAddCard} />
       <section className="section">
