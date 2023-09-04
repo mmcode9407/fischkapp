@@ -2,13 +2,14 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { getFlashCards, postNewFlashCard } from "../api/API";
+import { deleteFlashCard, getFlashCards, postNewFlashCard } from "../api/API";
 import { IFlashCard } from "../types/types";
 
 jest.mock("../api/API");
 
 const mockedGetCardsRequest = getFlashCards as jest.Mock;
 const mockedPostCardsRequest = postNewFlashCard as jest.Mock;
+const mockedDeleteCardsRequest = deleteFlashCard as jest.Mock;
 
 describe("add flashcard", () => {
   it("should add new flashcard when the front and back values are given ", async () => {
@@ -167,6 +168,29 @@ describe("get flashcard", () => {
 
     await waitFor(() => {
       expect(screen.getAllByText("front").length).toBe(2);
+    });
+  });
+});
+
+describe("delete flashcard", () => {
+  it("should delete flashcard when clicking on Trash icon", async () => {
+    const cards: IFlashCard[] = [{ front: "front", back: "back", _id: "123" }];
+    mockedGetCardsRequest.mockResolvedValue(cards);
+
+    render(<App />);
+
+    const editBtn = await waitFor(() => screen.getByLabelText("frontEditBtn"));
+    await userEvent.click(editBtn);
+
+    const deleteBtn = await waitFor(() =>
+      screen.getByLabelText("frontDeleteBtn"),
+    );
+    await userEvent.click(deleteBtn);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Flashcard deleted successfully"),
+      ).toBeInTheDocument();
     });
   });
 });

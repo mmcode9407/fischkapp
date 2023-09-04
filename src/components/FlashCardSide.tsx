@@ -81,7 +81,11 @@ export const FlashCardSide = ({
         </li>
       ) : (
         <div className={newCardStyles.card}>
-          <button className={newCardStyles.deleteBtn} onClick={handleDelete}>
+          <button
+            className={newCardStyles.deleteBtn}
+            onClick={handleDelete}
+            aria-label={`${side}DeleteBtn`}
+          >
             <img src={deleteIcon} alt="Delete icon" />
           </button>
           <form className={newCardStyles.form}>
