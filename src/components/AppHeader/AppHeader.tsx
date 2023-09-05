@@ -1,6 +1,6 @@
 import styles from "./AppHeader.module.css";
-import appLogo from "../../public/fishkapp_logo.svg";
-import addIcon from "../../public/icons/addIcon.svg";
+import appLogo from "../../../public/fishkapp_logo.svg";
+import addIcon from "../../../public/icons/addIcon.svg";
 
 interface IAppHeaderProps {
   cardsQty: number;

@@ -1,6 +1,6 @@
 ﻿import { useState } from "react";
 
-import { CardSide, IFlashCard } from "../types/types";
+import { CardSide, IFlashCard } from "@typings/types";
 import { FlashCardSide } from "./FlashCardSide";
 import ReactCardFlip from "react-card-flip";
 

@@ -1,14 +1,14 @@
 ﻿import { ChangeEvent, MouseEventHandler, useState } from "react";
 import styles from "./FlashCardSide.module.css";
-import newCardStyles from "./NewCard.module.css";
-import editIcon from "../../public/icons/editIcon.svg";
-import deleteIcon from "../../public/icons/deleteIcon.svg";
-import { NewCardSide } from "./NewCardSide";
-import { CardButton } from "./CardButton";
-import { CardSide, IFlashCard } from "../types/types";
-import { initialValue } from "../data/initialInputValue";
+import newCardStyles from "../NewCard/NewCard.module.css";
+import editIcon from "@icons/editIcon.svg";
+import deleteIcon from "@icons/deleteIcon.svg";
+import { FormControls } from "@components/Form/FormControls";
+import { FormButton } from "@components/Form/FormButton";
+import { CardSide, IFlashCard } from "@typings/types";
+import { initialValue } from "@data/initialInputValue";
 import { IFlashCardProps } from "./FlashCard";
-import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
+import { capitalizeFirstLetter } from "@utils/capitalizeFirstLetter";
 
 interface IFlashCardSideProps extends IFlashCardProps {
   side: CardSide;
@@ -89,20 +89,20 @@ export const FlashCardSide = ({
             <img src={deleteIcon} alt="Delete icon" />
           </button>
           <form className={newCardStyles.form}>
-            <NewCardSide
+            <FormControls
               name={side}
               updateField={updateField}
               value={value}
               error={error}
               setError={setError}
             >
-              <CardButton
+              <FormButton
                 variant="white"
                 onClick={handleCancel}
                 text="Cancel"
               />
-              <CardButton variant="black" text="Save" onClick={handleSave} />
-            </NewCardSide>
+              <FormButton variant="black" text="Save" onClick={handleSave} />
+            </FormControls>
           </form>
         </div>
       )}

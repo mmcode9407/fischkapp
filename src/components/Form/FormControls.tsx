@@ -1,8 +1,8 @@
 ﻿import { ChangeEvent, ReactNode, useEffect, useRef } from "react";
-import styles from "./NewCardSide.module.css";
-import { CardSide, IFlashCard } from "../types/types";
+import styles from "./FormControls.module.css";
+import { CardSide, IFlashCard } from "@typings/types";
 
-interface NewCardSideProps {
+interface FormControlsProps {
   children: ReactNode;
   name: CardSide;
   updateField: (e: ChangeEvent<HTMLTextAreaElement>) => void;
@@ -11,14 +11,14 @@ interface NewCardSideProps {
   setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const NewCardSide = ({
+export const FormControls = ({
   children,
   name,
   updateField,
   value,
   error,
   setError,
-}: NewCardSideProps) => {
+}: FormControlsProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInput = () => {

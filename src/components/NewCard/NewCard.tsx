@@ -1,10 +1,10 @@
 ﻿import { useState, ChangeEvent } from "react";
 import styles from "./NewCard.module.css";
-import deleteIcon from "../../public/icons/deleteIcon.svg";
-import { NewCardSide } from "./NewCardSide";
-import { CardButton } from "./CardButton";
-import { CardSide, IFlashCard } from "../types/types";
-import { initialValue } from "../data/initialInputValue";
+import deleteIcon from "@icons/deleteIcon.svg";
+import { FormControls } from "@components/Form/FormControls";
+import { FormButton } from "@components/Form/FormButton";
+import { CardSide, IFlashCard } from "@typings/types";
+import { initialValue } from "@data/initialInputValue";
 
 interface INewCardProps {
   onCancel: () => void;
@@ -47,39 +47,39 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
       )}
       <form className={styles.form}>
         {isFront ? (
-          <NewCardSide
+          <FormControls
             name={CardSide.FRONT}
             updateField={updateField}
             value={value}
             error={error}
             setError={setError}
           >
-            <CardButton variant="white" onClick={onCancel} text="Cancel" />
-            <CardButton
+            <FormButton variant="white" onClick={onCancel} text="Cancel" />
+            <FormButton
               variant="black"
               onClick={handleChangeSide}
               text="Next"
             />
-          </NewCardSide>
+          </FormControls>
         ) : (
-          <NewCardSide
+          <FormControls
             name={CardSide.BACK}
             updateField={updateField}
             value={value}
             error={error}
             setError={setError}
           >
-            <CardButton
+            <FormButton
               variant="white"
               onClick={handleChangeSide}
               text="Back"
             />
-            <CardButton
+            <FormButton
               variant="black"
               onClick={handleSaveButtonClick}
               text="Save"
             />
-          </NewCardSide>
+          </FormControls>
         )}
       </form>
     </div>

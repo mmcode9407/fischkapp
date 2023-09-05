@@ -1,4 +1,4 @@
-﻿import styles from "./CardButton.module.css";
+﻿import styles from "./FormButton.module.css";
 
 interface IButtonProps {
   variant: "white" | "black";
@@ -6,7 +6,7 @@ interface IButtonProps {
   text: string;
 }
 
-export const CardButton = ({ variant, onClick, text }: IButtonProps) => {
+export const FormButton = ({ variant, onClick, text }: IButtonProps) => {
   return (
     <button
       className={`${styles.btn} ${styles[variant]}`}

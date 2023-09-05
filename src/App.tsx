@@ -1,20 +1,20 @@
-import { AppHeader } from "./components/AppHeader";
-import { AppLayout } from "./components/AppLayout";
-import { NewCard } from "./components/NewCard";
-import { FlashCard } from "./components/FlashCard";
-import { Loader } from "./components/Loader";
+import { AppHeader } from "@components/AppHeader/AppHeader";
+import { AppLayout } from "@components/AppLayout/AppLayout";
+import { NewCard } from "@components/NewCard/NewCard";
+import { FlashCard } from "@components/FlashCard/FlashCard";
+import { Loader } from "@components/Loaders/Loader";
+import { DeleteModal } from "@components/Modals/DeleteModal";
 
 import "./App.css";
 import { useEffect, useState } from "react";
-import { CardSide, EditPayload, IFlashCard } from "./types/types";
+import { CardSide, EditPayload, IFlashCard } from "@typings/types";
 
 import {
   deleteFlashCard,
   editFlashCard,
   getFlashCards,
   postNewFlashCard,
-} from "./api/API";
-import { DeleteModal } from "./components/DeleteModal";
+} from "@/api/API";
 
 function App() {
   const [flashCardsList, setFlashCardList] = useState<IFlashCard[]>([]);
