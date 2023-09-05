@@ -4,6 +4,10 @@
 
 This project aims to create a simple app that supports learning.
 
+### 🔴 Live
+
+Feel free to try the app live [here](https://mmcode9407.github.io/fischkapp/)
+
 ---
 
 ### 📝 Project requirements
