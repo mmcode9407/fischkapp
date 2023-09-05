@@ -120,7 +120,7 @@ function App() {
         {isAdding && <NewCard onCancel={handleCancel} onSave={handleSave} />}
         {flashCardsList.length > 0 ? (
           <ul className="cardsContainer">
-            {flashCardsList.map(card => (
+            {[...flashCardsList].reverse().map(card => (
               <FlashCard
                 key={card._id}
                 cardContent={card}
