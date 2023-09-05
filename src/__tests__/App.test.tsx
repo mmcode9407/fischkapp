@@ -170,3 +170,30 @@ describe("get flashcard", () => {
     });
   });
 });
+
+describe("delete flashcard", () => {
+  it("should delete flashcard when clicking on Trash icon", async () => {
+    const cards: IFlashCard[] = [{ front: "front", back: "back", _id: "123" }];
+    mockedGetCardsRequest.mockResolvedValue(cards);
+
+    render(<App />);
+
+    const card = await waitFor(() => screen.getByText("front"));
+    const editBtn = await waitFor(() => screen.getByLabelText("frontEditBtn"));
+    await userEvent.click(editBtn);
+
+    const deleteBtn = await waitFor(() =>
+      screen.getByLabelText("frontDeleteBtn"),
+    );
+    await userEvent.click(deleteBtn);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Flashcard deleted successfully"),
+      ).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(card).not.toBeInTheDocument();
+    });
+  });
+});
