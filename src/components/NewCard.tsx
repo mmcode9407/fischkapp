@@ -41,7 +41,7 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
   return (
     <div className={styles.card}>
       {!isFront && (
-        <button className={styles.deleteBtn}>
+        <button className={styles.deleteBtn} onClick={onCancel}>
           <img src={deleteIcon} alt="Delete icon" />
         </button>
       )}
