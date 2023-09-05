@@ -130,7 +130,9 @@ function App() {
             ))}
           </ul>
         ) : (
-          <p className="emptyText">Add your first flashcard</p>
+          <>
+            {!isAdding && <p className="emptyText">Add your first flashcard</p>}
+          </>
         )}
       </section>
     </AppLayout>

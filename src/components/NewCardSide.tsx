@@ -38,7 +38,7 @@ export const NewCardSide = ({
   useEffect(() => {
     textareaRef.current?.focus();
     setHeight();
-  }, []);
+  }, [name]);
 
   return (
     <>
