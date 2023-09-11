@@ -7,6 +7,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
+  cursor: pointer;
 }
 
 .black {
@@ -16,4 +17,10 @@
 
 .white {
   background-color: var(--white);
+}
+
+@media (hover: none) {
+  .btn {
+    cursor: default;
+  }
 }
