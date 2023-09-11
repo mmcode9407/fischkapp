@@ -62,24 +62,27 @@ export const NewCard = ({ onCancel, onSave }: INewCardProps) => {
             />
           </FormControls>
         ) : (
-          <FormControls
-            name={CardSide.BACK}
-            updateField={updateField}
-            value={value}
-            error={error}
-            setError={setError}
-          >
-            <FormButton
-              variant="white"
-              onClick={handleChangeSide}
-              text="Back"
-            />
-            <FormButton
-              variant="black"
-              onClick={handleSaveButtonClick}
-              text="Save"
-            />
-          </FormControls>
+          <>
+            <p className={styles.frontPreview}>{value.front}</p>
+            <FormControls
+              name={CardSide.BACK}
+              updateField={updateField}
+              value={value}
+              error={error}
+              setError={setError}
+            >
+              <FormButton
+                variant="white"
+                onClick={handleChangeSide}
+                text="Back"
+              />
+              <FormButton
+                variant="black"
+                onClick={handleSaveButtonClick}
+                text="Save"
+              />
+            </FormControls>
+          </>
         )}
       </form>
     </div>

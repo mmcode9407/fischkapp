@@ -29,3 +29,9 @@
   background-color: var(--accent);
   cursor: pointer;
 }
+
+@media (hover: none) {
+  .add__btn {
+    cursor: default;
+  }
+}

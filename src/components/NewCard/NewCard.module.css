@@ -15,7 +15,6 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 46px;
 }
 
 .deleteBtn {
@@ -25,4 +24,16 @@
   border: none;
   background: none;
   cursor: pointer;
+}
+
+.frontPreview {
+  width: 100%;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+@media (hover: none) {
+  .deleteBtn {
+    cursor: default;
+  }
 }

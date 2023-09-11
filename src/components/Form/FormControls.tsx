@@ -35,10 +35,22 @@ export const FormControls = ({
     }
   };
 
+  const setCursorAtEnd = () => {
+    if (textareaRef.current) {
+      const textLength = textareaRef.current.value.length;
+
+      textareaRef.current.setSelectionRange(textLength, textLength);
+    }
+  };
+
   useEffect(() => {
     textareaRef.current?.focus();
     setHeight();
   }, [name]);
+
+  useEffect(() => {
+    setCursorAtEnd();
+  }, []);
 
   return (
     <>

@@ -28,3 +28,9 @@
   border: none;
   cursor: pointer;
 }
+
+@media (hover: none) {
+  .editBtn {
+    cursor: default;
+  }
+}
