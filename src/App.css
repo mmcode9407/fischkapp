@@ -20,6 +20,10 @@ button {
   font-family: "Lexend", sans-serif;
 }
 
+button {
+  color: var(--accent);
+}
+
 body {
   background: #373737;
 }
@@ -29,7 +33,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  padding: 16px;
+  padding: 16px 16px 76px;
 }
 
 .emptyText {
